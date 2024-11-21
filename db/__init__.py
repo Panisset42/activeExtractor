@@ -1,5 +1,4 @@
 import sqlite3
-import asyncio
 
 
 class DB:
@@ -21,14 +20,8 @@ class DB:
             email TEXT,
             phone TEXT,
             firstName TEXT,
-            telefone TEXT,
-            conta TEXT,
-            cargo TEXT,
-            whatsapp TEXT,
-            ddd TEXT,
             numero TEXT,
             url TEXT,
-            dia_da_semana TEXT,
             nivel_cliente TEXT,
             utm_source TEXT,
             utm_medium TEXT,
@@ -42,25 +35,7 @@ class DB:
             segmento_da_empresa TEXT,
             o_que_busca_para_os_colaboradores TEXT,
             faturamento_da_empresa TEXT,
-            url_lp TEXT,
-            data_do_evento TEXT,
-            url_grupo TEXT,
-            dias_7 TEXT,
-            dias_5 TEXT,
-            dias_4 TEXT,
-            dias_3 TEXT,
-            dia_anterior TEXT,
-            dia_seguinte TEXT,
-            local TEXT,
-            endereco TEXT,
-            pto_ref TEXT,
-            dia TEXT,
             cidade TEXT,
-            idade TEXT,
-            cidade_estado TEXT,
-            trabalha TEXT,
-            cargo_atual TEXT,
-            tarefas_cargo TEXT,
             salario TEXT,
             resultado_significativo TEXT,
             conhecia_a_empresa TEXT,
@@ -78,7 +53,6 @@ class DB:
                                 VALUES (?, ?, ?, ?)''', (lead_id, email, phone, first_name))
             self.con.commit()
 
-
         except sqlite3.Error as e:
             print(f"An error occurred: {e}")
 
@@ -87,7 +61,7 @@ class DB:
         try:
             keys = ', '.join(kwargs.keys())
             placeholders = ', '.join('?' * len(kwargs))
-            query = f"INSERT INTO active_lead_data ({keys}) VALUES ({placeholders})"
+            query = f"INSERT OR IGNORE INTO active_lead_data ({keys}) VALUES ({placeholders})"
             self.cur.execute(query, tuple(kwargs.values()))
             self.con.commit()
         except sqlite3.Error as e:

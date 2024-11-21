@@ -12,7 +12,7 @@ class ActiveFunctions:
         import requests
         import json
 
-        url = f"{self.url_base}contacts/1556524/{requested_data}"
+        url = f"{self.url_base}contacts/{lead_id}/{requested_data}"
         response = requests.get(url, headers=self.headers)
         data = json.loads(response.text)
         formatted_data = json.dumps(data, indent=4)
